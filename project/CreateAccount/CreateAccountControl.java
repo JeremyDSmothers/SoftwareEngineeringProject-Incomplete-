@@ -28,7 +28,7 @@ public class CreateAccountControl implements ActionListener {
 		if (command.contentEquals("Cancel")) {
 			InitialPanel initialPanel = (InitialPanel) container.getComponent(0);
 			CardLayout cardLayout = (CardLayout) container.getLayout();
-			cardLayout.show(container, "4");
+			cardLayout.show(container, "1");
 		} else if (command.contentEquals("Submit")) {
 			CreateAccountPanel createAccountPanel = (CreateAccountPanel) container.getComponent(2);
 			String username = createAccountPanel.getUsername();
