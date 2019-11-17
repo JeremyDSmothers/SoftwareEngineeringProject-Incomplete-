@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import project.GameClient;
+import project.Game.GamePanel;
 import project.Initial.InitialPanel;
 
 public class LoginControl implements ActionListener {
@@ -47,7 +48,11 @@ public class LoginControl implements ActionListener {
 			// in there
 
 			// LoginData to check
-			LoginData loginData = new LoginData(username, password);
+//			LoginData loginData = new LoginData(username, password);
+
+			GamePanel gamePanel = (GamePanel) container.getComponent(3);
+			CardLayout cardLayout = (CardLayout) container.getLayout();
+			cardLayout.show(container, "4");
 
 		}
 	}
