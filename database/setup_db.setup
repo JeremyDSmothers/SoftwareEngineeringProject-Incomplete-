@@ -1,0 +1,6 @@
+1. Assuming mysql is already setup, login as root and add r405 as a new database;
+
+	* Navigate to bin through command line
+	* command: mysql -u root -p
+	* enter your root password
+	* command: create database r405;
