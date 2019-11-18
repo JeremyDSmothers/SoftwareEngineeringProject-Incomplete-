@@ -12,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -22,17 +23,27 @@ import project.Country;
 
 public class GamePanel extends JPanel {
 	private ArrayList<Country> countries;
+	private ArrayList<CardPanel> deck;
+
+	// country click
 	private JLabel leftPanelNameLabel;
 	private JLabel leftPanelOwnedByLabel;
 	private JLabel leftPanelTroopsLabel;
 	private JLabel SouthPanelTitleLabel;
 	private JLabel SouthPanelMsgLabel;
+
+	// card click
+	private JButton cardInfoButton;
+	private JLabel cardTitle;
+	private JLabel cardDescription;
+
 	private GameControl gc;
 
 	public GamePanel(GameControl gc) {
 		this.gc = gc;
 		setLayout(new BorderLayout(0, 0));
 		countries = new ArrayList<>();
+		deck = new ArrayList<>();
 
 		JPanel leftInfoPanel = new JPanel();
 		add(leftInfoPanel, BorderLayout.WEST);
@@ -99,20 +110,20 @@ public class GamePanel extends JPanel {
 		cardGrid.setLayout(new GridLayout(2, 3, 0, 0));
 		rightInfoPanel.add(cardGrid);
 
-		CardPanel card1 = new CardPanel();
+		CardPanel card1 = new CardPanel(gc);
 		card1.setSize(75, 90);
 		card1.setCardTitle("card1");
-		CardPanel card2 = new CardPanel();
+		CardPanel card2 = new CardPanel(gc);
 		card2.setSize(75, 90);
 		card2.setCardTitle("card2");
-		CardPanel card3 = new CardPanel();
+		CardPanel card3 = new CardPanel(gc);
 		card3.setSize(75, 90);
 		card3.setCardTitle("card3");
-		CardPanel card4 = new CardPanel();
+		CardPanel card4 = new CardPanel(gc);
 		card4.setSize(75, 90);
-		CardPanel card5 = new CardPanel();
+		CardPanel card5 = new CardPanel(gc);
 		card5.setSize(75, 90);
-		CardPanel card6 = new CardPanel();
+		CardPanel card6 = new CardPanel(gc);
 		card6.setSize(75, 90);
 		cardGrid.add(card1);
 		cardGrid.add(card2);
@@ -120,10 +131,35 @@ public class GamePanel extends JPanel {
 		cardGrid.add(card4);
 		cardGrid.add(card5);
 		cardGrid.add(card6);
+		deck.add(card1);
+		deck.add(card2);
+		deck.add(card3);
+		deck.add(card4);
+		deck.add(card5);
+		deck.add(card6);
 		cardGrid.setBorder(BorderFactory.createLineBorder(Color.gray, 2));
 
-		Component horizontalStrut = Box.createHorizontalStrut(250);
-		rightInfoPanel.add(horizontalStrut);
+		JPanel cardInfoPanel = new JPanel();
+		cardInfoPanel.setBackground(Color.RED);
+		rightInfoPanel.add(cardInfoPanel, BorderLayout.NORTH);
+		cardInfoPanel.setLayout(new BorderLayout(0, 0));
+
+		cardInfoButton = new JButton("");
+		cardInfoButton.setHorizontalAlignment(SwingConstants.RIGHT);
+		cardInfoButton.setVerticalAlignment(SwingConstants.TOP);
+		cardInfoButton.addActionListener(gc);
+		cardInfoPanel.add(cardInfoButton, BorderLayout.CENTER);
+
+		cardTitle = new JLabel("Card Title");
+		cardTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		cardTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		cardInfoPanel.add(cardTitle, BorderLayout.NORTH);
+
+		cardDescription = new JLabel(
+				"<html>Card Description - This area<br>\r\nwill be used to explain,<br>\r\nin detail, what the card is used for\r\n<br>and how it<br>\r\ncan be applied to the user.<br>\r\nYou can use html to apply styling<br>\r\nand implement line breaks using<br>\r\nthe \"br\" tag (sub \" for <>)\r\n");
+		cardDescription.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cardDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		cardInfoPanel.add(cardDescription, BorderLayout.SOUTH);
 
 		JPanel southInfoPanel = new JPanel();
 		add(southInfoPanel, BorderLayout.SOUTH);
@@ -145,10 +181,28 @@ public class GamePanel extends JPanel {
 		instantiateCountryList(boardPanel);
 	}
 
+	public ArrayList<CardPanel> getDeck() {
+		return deck;
+	}
+
 	public ArrayList<Country> getCountries() {
 		return countries;
 	}
 
+	// card click
+	public JButton getCardInfoButton() {
+		return cardInfoButton;
+	}
+
+	public JLabel getCardTitle() {
+		return cardTitle;
+	}
+
+	public JLabel getCardDescription() {
+		return cardDescription;
+	}
+
+	// country click
 	public JLabel getLeftPanelNameLabel() {
 		return leftPanelNameLabel;
 	}
@@ -169,6 +223,7 @@ public class GamePanel extends JPanel {
 		return SouthPanelMsgLabel;
 	}
 
+	// setup
 	private void instantiateCountryList(JPanel boardPanel) {
 		JButton btnKamchatka = new JButton("Kamchatka");
 		btnKamchatka.setBounds(1219, 34, 108, 271);

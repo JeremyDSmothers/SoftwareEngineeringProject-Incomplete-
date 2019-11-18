@@ -8,19 +8,53 @@ public class GameClient extends AbstractClient {
 	private String host;
 	private int port;
 	private ArrayList<String> countries;
+	private ArrayList<String> cardOptions;
+	private ArrayList<String> cardDescriptions;
+	private ArrayList<String> cardImages;
 
 	public GameClient() {
 		super("localhost", 9300);
 		host = "localhost";
 		port = 9300;
+
+		// instantiate arraylists as arraylists
 		countries = new ArrayList<>();
+		cardOptions = new ArrayList<>();
+		cardDescriptions = new ArrayList<>();
+		cardImages = new ArrayList<>();
+
+		// instantiate content of arraylists
 		setCountries();
+		setCardTitles();
+		setCardDescriptions();
+		setCardImages();
 	}
 
 	public GameClient(String host, int port) {
 		super(host, port);
 		this.host = host;
 		this.port = port;
+	}
+
+	private void setCardTitles() {
+		cardOptions.add("Calvary Unit");
+		cardOptions.add("Infantry Unit");
+		cardOptions.add("Tank Unit");
+		cardOptions.add("Medic Unit");
+	}
+
+	private void setCardDescriptions() {
+		cardDescriptions.add("This is the description for the Calvary Unit");
+		cardDescriptions.add("This is the description for the Infantry Unit");
+		cardDescriptions.add("This is the description for the Tank Unit");
+		cardDescriptions.add("This is the description for the Medic Unit");
+	}
+
+	private void setCardImages() {
+		cardImages.add("calvaryUnit.jpg");
+		cardImages.add("calvaryUnit.jpg");
+		cardImages.add("calvaryUnit.jpg");
+		cardImages.add("calvaryUnit.jpg");
 	}
 
 	private void setCountries() {
@@ -70,6 +104,18 @@ public class GameClient extends AbstractClient {
 
 	public ArrayList<String> getCountries() {
 		return countries;
+	}
+
+	public ArrayList<String> getCardOptions() {
+		return cardOptions;
+	}
+
+	public ArrayList<String> getCardDescriptions() {
+		return cardDescriptions;
+	}
+
+	public ArrayList<String> getCardImages() {
+		return cardImages;
 	}
 
 	@Override
