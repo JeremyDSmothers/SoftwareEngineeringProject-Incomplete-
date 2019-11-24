@@ -14,12 +14,14 @@ import javax.swing.SwingConstants;
 public class CardPanel extends JPanel {
 	private String imageResource;
 	private String title;
+	private int cardNum;
 
-	public CardPanel() {
+	public CardPanel(GameControl gc) {
 		setLayout(null);
 
 		imageResource = "calvaryUnit.JPG";
 		title = "Calvary Unit";
+		cardNum = 1;
 
 		JLabel cardTitle = new JLabel(title, SwingConstants.CENTER);
 		cardTitle.setVerticalAlignment(SwingConstants.CENTER);
@@ -33,15 +35,18 @@ public class CardPanel extends JPanel {
 			System.out.println("Image file not found!");
 		}
 
-		JButton cardImage = new JButton("");
+		JButton cardImage = null;
+		Image img = null;
 		try {
-			Image img = ImageIO.read(imageCheck);
-			cardImage.setIcon(new ImageIcon(img));
+			img = ImageIO.read(imageCheck);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		cardImage.setBounds(10, 25, 80, 155);
-
+		cardImage = new JButton(Integer.toString(cardNum), new ImageIcon(img));
+		cardImage.setHorizontalAlignment(SwingConstants.RIGHT);
+		cardImage.setVerticalAlignment(SwingConstants.TOP);
+		cardImage.setBounds(10, 25, 80, 150);
+		cardImage.addActionListener(gc);
 		this.setPreferredSize(new Dimension(100, 175));
 		add(cardImage);
 	}
